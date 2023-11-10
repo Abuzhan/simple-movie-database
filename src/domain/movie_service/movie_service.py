@@ -27,6 +27,11 @@ class MovieService:
             await self.movie_storage_port.upsert_movies(fetched_movies)
             logger.info('Data initialized')
 
+    async def get_all_movies(self, page: int or None, number_of_records: int or None):
+        page = page or 1
+        number_of_records = number_of_records or 10
+        return await self.movie_storage_port.get_all_movies(page, number_of_records)
+
     async def _is_storage_empty(self):
         stored_movies = await self.movie_storage_port.get_all_movies()
         return len(stored_movies) == 0
