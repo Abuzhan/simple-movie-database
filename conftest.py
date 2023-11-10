@@ -1,4 +1,7 @@
 import asyncio
+import os
+import socket
+from contextlib import closing
 
 import pytest
 import pytest_asyncio
@@ -15,6 +18,31 @@ def event_loop():
     loop = asyncio.new_event_loop()
     yield loop
     loop.close()
+
+
+@pytest.fixture(scope='session')
+def port():
+    # pylint: disable=no-member
+    with closing(socket.socket(socket.AF_INET, socket.SOCK_STREAM)) as stream:
+        stream.bind(('', 0))
+        return stream.getsockname()[1]
+
+
+@pytest.fixture(scope='session', autouse=True)
+def logging():
+    from src.logging import initialize_logging
+
+    initialize_logging()
+
+
+@pytest.fixture(scope='session')
+def app(port, db_tables):
+    os.environ['PORT'] = str(port)
+    from src.bootstrap import create_app
+
+    os.environ['ENVIRONMENT'] = 'test'
+    app = create_app()
+    return app
 
 
 @pytest.fixture(scope='session')
