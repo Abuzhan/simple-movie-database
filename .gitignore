@@ -1,0 +1,7 @@
+.idea/
+.python-version
+*.py[cod]
+*$py.class
+.DS_Store
+
+__pycache__/
