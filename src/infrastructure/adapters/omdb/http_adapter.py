@@ -3,7 +3,12 @@ from datetime import datetime
 
 import aiohttp
 
-from src.domain.movie_service import OMDBPort, Movie, FailedToFetchOMDBMovie, OMDBMovieNotFound
+from src.domain.movie_service import (
+    OMDBPort,
+    Movie,
+    FailedToFetchOMDBMovie,
+    OMDBMovieNotFound,
+)
 
 logger = logging.getLogger(__name__)
 
@@ -20,7 +25,10 @@ class OMDBHttpAdapter(OMDBPort):
                 data = await response.json()
                 if response.status != 200:
                     raise FailedToFetchOMDBMovie('Error fetching movie')
-                if data.get('Response') == 'False' and data.get('Error') == 'Movie not found!':
+                if (
+                    data.get('Response') == 'False'
+                    and data.get('Error') == 'Movie not found!'
+                ):
                     raise OMDBMovieNotFound('Requested movie not found')
                 if data.get('Response') == 'False':
                     raise FailedToFetchOMDBMovie('Error fetching movie')
@@ -37,7 +45,10 @@ class OMDBHttpAdapter(OMDBPort):
                 data = await response.json()
                 if response.status != 200:
                     raise FailedToFetchOMDBMovie('Error fetching movie')
-                if data.get('Response') == 'False' and data.get('Error') == 'Incorrect IMDb ID.':
+                if (
+                    data.get('Response') == 'False'
+                    and data.get('Error') == 'Incorrect IMDb ID.'
+                ):
                     raise OMDBMovieNotFound('Requested movie not found')
                 if data.get('Response') == 'False':
                     raise FailedToFetchOMDBMovie('Error fetching movie')

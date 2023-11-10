@@ -7,7 +7,9 @@ from src.infrastructure.adapters.omdb.http_adapter import OMDBHttpAdapter
 
 
 @pytest.mark.asyncio
-async def test_fetch_movie_by_imdb_id_returns_correct_data_format_when_succeeds(mock_aioresponse):
+async def test_fetch_movie_by_imdb_id_returns_correct_data_format_when_succeeds(
+    mock_aioresponse,
+):
     # given
     base_url = 'http://www.test.com'
     api_key = 'random_api_key'
@@ -16,7 +18,7 @@ async def test_fetch_movie_by_imdb_id_returns_correct_data_format_when_succeeds(
     mock_aioresponse.get(
         url=f'{base_url}/?apikey={api_key}&i={imdb_id}&type=movie',
         payload=response,
-        status=200
+        status=200,
     )
     http_adapter = OMDBHttpAdapter(api_key=api_key, base_url=base_url)
 
@@ -35,7 +37,9 @@ async def test_fetch_movie_by_imdb_id_returns_correct_data_format_when_succeeds(
 
 
 @pytest.mark.asyncio
-async def test_fetch_movie_by_imdb_id_raises_correct_exception_when_movie_not_found(mock_aioresponse):
+async def test_fetch_movie_by_imdb_id_raises_correct_exception_when_movie_not_found(
+    mock_aioresponse,
+):
     # given
     base_url = 'http://www.test.com'
     api_key = 'random_api_key'
@@ -44,7 +48,7 @@ async def test_fetch_movie_by_imdb_id_raises_correct_exception_when_movie_not_fo
     mock_aioresponse.get(
         url=f'{base_url}/?apikey={api_key}&i={imdb_id}&type=movie',
         payload=response,
-        status=200
+        status=200,
     )
     http_adapter = OMDBHttpAdapter(api_key=api_key, base_url=base_url)
 
@@ -56,7 +60,9 @@ async def test_fetch_movie_by_imdb_id_raises_correct_exception_when_movie_not_fo
     assert str(excinfo.value) == 'Requested movie not found'
 
 
-def get_fetch_movie_by_imdb_id_success_response(imdb_id: str = None, title: str = None) -> dict:
+def get_fetch_movie_by_imdb_id_success_response(
+    imdb_id: str = None, title: str = None
+) -> dict:
     return {
         "Title": title if title else "The Guardians of the Galaxy",
         "Year": "2017",
@@ -67,12 +73,9 @@ def get_fetch_movie_by_imdb_id_success_response(imdb_id: str = None, title: str 
         "imdbRating": "7.6",
         "imdbID": imdb_id if imdb_id else "tt3896198",
         "Type": "movie",
-        "Response": "True"
+        "Response": "True",
     }
 
 
 def get_fetch_movie_by_imdb_id_not_found_response() -> dict:
-    return {
-        "Error": "Incorrect IMDb ID.",
-        "Response": "False"
-    }
+    return {"Error": "Incorrect IMDb ID.", "Response": "False"}
