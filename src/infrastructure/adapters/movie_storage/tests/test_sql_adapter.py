@@ -89,6 +89,21 @@ async def test_delete_movie_succeeds_at_deleting_existing_movie(
 
 
 @pytest.mark.asyncio
+async def test_delete_movie_skips_deleting_when_movie_does_not_exist(
+    sql_client,
+):
+    # given
+    adapter = MovieStorageSqlAlchemyAdapter(sql_client)
+    movie = generate_domain_movie()
+
+    # when
+    await adapter.delete_movie(movie.imdb_id)
+
+    # then
+    assert await adapter.get_movie_by_title(movie.title) is None
+
+
+@pytest.mark.asyncio
 async def test_get_all_movies_returns_movies_in_correct_order(
     sql_client,
 ):

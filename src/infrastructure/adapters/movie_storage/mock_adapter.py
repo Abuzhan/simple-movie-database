@@ -34,7 +34,8 @@ class MovieStorageMockAdapter(MovieStoragePort):
             self.movies[movie.imdb_id] = movie
 
     async def delete_movie(self, imdb_id: str):
-        del self.movies[imdb_id]
+        if imdb_id in self.movies:
+            del self.movies[imdb_id]
 
 
 __all__ = ['MovieStorageMockAdapter']

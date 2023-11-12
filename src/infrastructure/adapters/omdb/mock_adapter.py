@@ -9,11 +9,15 @@ logger = logging.getLogger(__name__)
 
 class OMDBMockAdapter(OMDBPort):
     def __init__(self, throw_not_found_exception: bool = False):
+        self.imdb_id_to_use = 'tt0111161'
         self.throw_not_found_exception = throw_not_found_exception
 
     async def fetch_movie_by_title(self, title: str) -> Movie:
+        if self.throw_not_found_exception:
+            raise OMDBMovieNotFound('Requested movie not found')
+
         return Movie(
-            imdb_id='tt0111161',
+            imdb_id=self.imdb_id_to_use,
             title=title,
             year=1994,
             genre='Drama',

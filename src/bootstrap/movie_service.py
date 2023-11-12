@@ -18,7 +18,8 @@ def initialize_movie_service(app: Sanic, sql_client: SqlClient) -> MovieService:
 
     @app.listener('after_server_start')
     async def _initialize_data(_app: Sanic, _loop):
-        await app.ctx.movie_service.initialize_data()
+        if app.config['INITIALIZE_DATA']:
+            await app.ctx.movie_service.initialize_data()
 
     return app.ctx.movie_service
 

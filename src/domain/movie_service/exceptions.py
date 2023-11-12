@@ -6,4 +6,8 @@ class OMDBMovieNotFound(Exception):
     error_code = 'OMDB_MOVIE_NOT_FOUND'
 
 
-__all__ = ['FailedToFetchOMDBMovie', 'OMDBMovieNotFound']
+class MovieNotFound(Exception):
+    error_code = 'MOVIE_NOT_FOUND'
+
+
+__all__ = ['FailedToFetchOMDBMovie', 'OMDBMovieNotFound', 'MovieNotFound']

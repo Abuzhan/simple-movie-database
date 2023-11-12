@@ -15,6 +15,7 @@ class Config:
         self.OMDB_API_KEY = None
         self.OMDB_BASE_URL = 'http://www.omdbapi.com/'
         self.SECRET = generate_random_string()
+        self.INITIALIZE_DATA = True
 
 
 class DevelopmentConfig(Config):
@@ -48,6 +49,7 @@ class TestConfig(Config):
             'dbname': self.DB_NAME,
         }
         self.OMDB_API_KEY = generate_random_string()
+        self.INITIALIZE_DATA = False
 
 
 class ProductionConfig(Config):
