@@ -1,5 +1,6 @@
 import os
 
+import service_secrets
 from src.utils import generate_random_string
 
 LOCAL_PORT = 1399
@@ -31,7 +32,7 @@ class DevelopmentConfig(Config):
             'port': self.DB_PORT,
             'dbname': self.DB_NAME,
         }
-        self.OMDB_API_KEY = '98d9e8b3'
+        self.OMDB_API_KEY = service_secrets.OMDB_API_KEY
 
 
 class TestConfig(Config):
@@ -57,4 +58,11 @@ class ProductionConfig(Config):
         super().__init__()
         self.PORT = os.environ['PORT']
         self.ENV = 'production'
-        self.OMDB_API_KEY = '98d9e8b3'
+        self.OMDB_API_KEY = service_secrets.OMDB_API_KEY
+        self.DB_CONNECTION_PARAMETERS = {
+            'user': self.DB_USER,
+            'password': service_secrets.DB_PASSWORD,
+            'port': self.DB_PORT,
+            'host': '127.0.0.1',
+            'dbname': self.DB_NAME,
+        }
