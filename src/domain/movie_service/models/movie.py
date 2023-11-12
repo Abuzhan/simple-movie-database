@@ -7,10 +7,10 @@ class Movie:
     imdb_id: str
     title: str
     year: int
-    genre: str
-    director: str
-    country: str
-    imdb_rating: float
+    genre: str or None
+    director: str or None
+    country: str or None
+    imdb_rating: float or None
     released_at: datetime
 
 

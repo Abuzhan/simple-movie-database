@@ -19,7 +19,7 @@ class OMDBHttpAdapter(OMDBPort):
         self.api_key = api_key
 
     async def fetch_movie_by_title(self, title: str) -> Movie:
-        params = {'s': title, 'type': 'movie', 'apikey': self.api_key}
+        params = {'t': title, 'type': 'movie', 'apikey': self.api_key}
         async with aiohttp.ClientSession() as session:
             async with session.get(self.base_url, params=params) as response:
                 data = await response.json()
@@ -33,10 +33,7 @@ class OMDBHttpAdapter(OMDBPort):
                 if data.get('Response') == 'False':
                     raise FailedToFetchOMDBMovie('Error fetching movie')
 
-                fetched_movies = data.get('Search')
-                # picking first in the list, assuming it's the most relevant
-                target_movie = fetched_movies[0]
-                return self._convert_omdb_movie_to_domain_movie(target_movie)
+                return self._convert_omdb_movie_to_domain_movie(data)
 
     async def fetch_movie_by_imdb_id(self, imdb_id: str) -> [Movie]:
         params = {'i': imdb_id, 'type': 'movie', 'apikey': self.api_key}

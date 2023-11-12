@@ -1,7 +1,8 @@
 from functools import wraps
 
 import jwt
-from sanic import text
+
+from src.infrastructure.endpoints import create_response
 
 
 def check_token(request):
@@ -26,7 +27,11 @@ def protected(wrapped):
                 response = await f(request, *args, **kwargs)
                 return response
             else:
-                return text("You are unauthorized.", 401)
+                return create_response(
+                    error_code="UNAUTHORIZED",
+                    message="You are not authorized to access this resource",
+                    status_code=401,
+                )
 
         return decorated_function
 

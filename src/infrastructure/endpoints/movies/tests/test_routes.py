@@ -22,9 +22,20 @@ def test_get_all_movies_returns_empty_list_when_no_movies_exist(client):
     assert len(response.json['data']) == 0
 
 
+def test_get_movie_returns_400_when_no_body(client):
+    # given
+    url = '/v1/movies.get'
+
+    # when
+    _, response = client.get(url)
+
+    # then
+    assert response.status_code == 400
+
+
 def test_get_movie_returns_404_when_movie_does_not_exist(client):
     # given
-    url = '/v1/movies.get/test'
+    url = '/v1/movies.get/test?title=Test'
 
     # when
     _, response = client.get(url)

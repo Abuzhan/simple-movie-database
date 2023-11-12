@@ -2,7 +2,7 @@ import logging
 
 from sanic import Blueprint, Request
 
-from src.domain.movie_service import MovieNotFound
+from src.domain.movie_service import MovieNotFound, OMDBMovieNotFound
 from src.infrastructure.endpoints.decorators import protected
 from src.infrastructure.endpoints.movies.utils import convert_movie_to_dict
 from src.infrastructure.endpoints.utils import create_response
@@ -24,17 +24,24 @@ async def list_all_movies(request: Request):
             status_code=400,
         )
     movie_service = request.app.ctx.movie_service
-    movies = await movie_service.get_all_movies(page, number_of_records)
+    movies = await movie_service.get_all_movies(int(page), int(number_of_records))
     return create_response([convert_movie_to_dict(movie) for movie in movies])
 
 
-@MOVIES_ROUTES.route('/movies.get/<title:str>', methods=['GET'])
-async def get_movie(request: Request, title: str):
+@MOVIES_ROUTES.route('/movies.get', methods=['GET'])
+async def get_movie(request: Request):
+    title = request.args.get('title')
     logger.info('Getting movie %s', title)
+    if not title:
+        return create_response(
+            error_code='INVALID_REQUEST_BODY',
+            message='Invalid request body',
+            status_code=400,
+        )
     movie_service = request.app.ctx.movie_service
 
     try:
-        movie = await movie_service.get_movie_by_title(title)
+        movie = await movie_service.get_movie_by_title(str(title))
     except MovieNotFound as e:
         return create_response(
             error_code=e.error_code,
@@ -58,7 +65,14 @@ async def create_movie(request: Request):
             status_code=400,
         )
 
-    movie = await movie_service.create_new_movie(str(title))
+    try:
+        movie = await movie_service.create_new_movie(str(title))
+    except OMDBMovieNotFound as e:
+        return create_response(
+            error_code=e.error_code,
+            message=f'Movie {title} not found in OMDB',
+            status_code=404,
+        )
     return create_response(convert_movie_to_dict(movie))
 
 
