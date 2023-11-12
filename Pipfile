@@ -10,14 +10,9 @@ pytest = "==7.3.0"
 pytest-asyncio = "==0.21.0"
 sanic-testing = "==23.3.0"
 aioresponses = "==0.7.4"
-aiohttp = "==3.8.5"
 black = "==23.3.0"
 pre-commit = "==3.2.2"
 typing-extensions = "==4.5.0"
-aiopg = {version = "==1.5.0a1", extras = ["sa"]}
-sqlalchemy = "==2.0.20"
-alembic = "==1.11.3"
-psycopg2 = "==2.9.7"
 
 [packages]
 python-json-logger = "==2.0.7"
@@ -25,6 +20,11 @@ sanic = "==23.6.0"
 isodate = "==0.6.1"
 ujson = "==5.7.0"
 PyJWT = "==2.8.0"
+aiopg = {version = "==1.5.0a1", extras = ["sa"]}
+sqlalchemy = "==2.0.20"
+alembic = "==1.11.3"
+psycopg2 = "==2.9.7"
+aiohttp = "==3.8.5"
 
 [requires]
 python_version = "3.11"
