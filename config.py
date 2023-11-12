@@ -62,7 +62,7 @@ class ProductionConfig(Config):
         self.DB_CONNECTION_PARAMETERS = {
             'user': self.DB_USER,
             'password': service_secrets.DB_PASSWORD,
-            'port': 5433,
-            'host': 'localhost',
+            'port': 5432,
+            'host': '127.0.0.1',
             'dbname': self.DB_NAME,
         }
