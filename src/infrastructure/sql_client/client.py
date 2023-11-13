@@ -15,6 +15,9 @@ class SqlClient:
         self.db_engine = None
 
     async def start(self):
+        logger.info(
+            'Initializing database engine with params: %s', self.connection_parameters
+        )
         self.db_engine = await create_engine(**self.connection_parameters)
         async with self.db_engine.acquire() as conn:
             await conn.execute("select 1")
