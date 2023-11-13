@@ -2,7 +2,7 @@ FROM python:3.11.5
 
 WORKDIR simple-movie-database
 
-ENV ENVIRONMENT local
+ENV ENVIRONMENT production
 
 RUN pip install pipenv
 
