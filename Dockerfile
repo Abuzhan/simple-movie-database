@@ -8,9 +8,6 @@ RUN pip install pipenv
 
 RUN apt-get update && apt-get -y install supervisor
 
-RUN wget https://dl.google.com/cloudsql/cloud_sql_proxy.linux.amd64 -O /usr/bin/cloud_sql_proxy
-RUN chmod +x /usr/bin/cloud_sql_proxy
-
 COPY Pipfile .
 COPY Pipfile.lock .
 RUN PIPENV_VENV_IN_PROJECT=1 pipenv install --deploy --ignore-pipfile

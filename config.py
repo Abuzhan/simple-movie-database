@@ -62,7 +62,6 @@ class ProductionConfig(Config):
         self.DB_CONNECTION_PARAMETERS = {
             'user': self.DB_USER,
             'password': service_secrets.DB_PASSWORD,
-            'port': 5432,
-            'host': '127.0.0.1',
+            'host': f'/cloudsql/vivid-partition-403614:europe-west1:main',
             'dbname': self.DB_NAME,
         }
