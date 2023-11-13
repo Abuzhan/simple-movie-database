@@ -48,5 +48,10 @@ The service is also connected to Google Cloud SQL database (PostgresQL).
 - Separating main movie service and OMDB integration into separate microservices. This will help if codebase is being managed by a bigger team of engineers and will allow to scale each service separately. It will also allow using generic agnostic port for different 3-rd party integrations.
 - Introducing deployment phases and CI/CD for pushing the service to production and enable agile way of working. (Docker, Terraform, Kubernetes, Jenkins, DigitalOcean, etc.). I usually prefer IaC approach in any DevOps job, so deploying this service to GCP with something like Terraform including proper monitoring and alerting would be a good idea.
 
+## Surprise part
+I wasn't sure if I should really build something cool to showcase by skills, but in the end decided to just go with old but gold easter egg on teapot. I hope it makes you smile.
+
 ## Final words
 I tried to take this challenge closer to real-life problem and produce a solution that would be easy to maintain and extend. I also tried to keep it simple and not over-engineer it. I hope you will enjoy reading it as much as I enjoyed writing it.
+
+
