@@ -40,6 +40,8 @@ maintainability and testability.
 The service is deployed on Google Cloud Platform (GCP) using Google Cloud Run service. It is a fully managed serverless container platform that automatically scales your stateless containers. It is also quite easy to deploy and manage. The service is deployed using Dockerfile and Cloud Build with Dockerfile.
 The service is also connected to Google Cloud SQL database (PostgresQL).
 
+Service is deployed and can be accessed by the url - https://simple-movie-database-rztgjpsruq-ew.a.run.app
+
 ## Future improvements
 - Better error handling and logging.
 - Better test coverage. Due to time constraints there are a few tests missing that felt repetitive and not necessary to implement, but if this becomes a real life application it would be a good idea to cover all endpoints and main functions with tests. 
@@ -49,7 +51,7 @@ The service is also connected to Google Cloud SQL database (PostgresQL).
 - Introducing deployment phases and CI/CD for pushing the service to production and enable agile way of working. (Docker, Terraform, Kubernetes, Jenkins, DigitalOcean, etc.). I usually prefer IaC approach in any DevOps job, so deploying this service to GCP with something like Terraform including proper monitoring and alerting would be a good idea.
 
 ## Surprise part
-I wasn't sure if I should really build something cool to showcase by skills, but in the end decided to just go with old but gold easter egg on teapot. I hope it makes you smile.
+I wasn't sure if I should really build something cool to showcase by skills, but in the end decided to just go with old but gold easter egg on [teapot](https://en.wikipedia.org/wiki/Hyper_Text_Coffee_Pot_Control_Protocol). I hope it makes you smile.
 
 ## Final words
 I tried to take this challenge closer to real-life problem and produce a solution that would be easy to maintain and extend. I also tried to keep it simple and not over-engineer it. I hope you will enjoy reading it as much as I enjoyed writing it.
